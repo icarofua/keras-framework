@@ -4,3 +4,4 @@ numpy>=1.17.4
 pandas>=0.25.3
 scikit-learn>=0.22
 tensorflow-gpu==2.0.0a0
+autokeras
