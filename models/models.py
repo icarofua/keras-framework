@@ -422,11 +422,11 @@ def vgg_cnn_m_1024(input_shape=(224,224,3)):
 
     return Model(input1,x)
 
-def small_vgg(input_shape):
-    kernels = [64, 128, 128, 256 , 512]
-    num_convs = [1,1,1,1,1]
-    with_bn = True
-    with_l2 = False
+def smallvgg(input_shape,
+              kernels=[64, 128, 128, 256 , 512],
+              num_convs=[1,1,1,1,1],
+              with_bn = True,
+              with_l2 = False):
     input1 = Input(input_shape)
     x = input1
     c = 0
@@ -434,15 +434,15 @@ def small_vgg(input_shape):
       for n in range(num_convs[c]):
         if with_l2:
           x = Conv2D(k, 
-		(3, 3), 
-		kernel_initializer='he_normal', 
-		kernel_regularizer=l2(1e-3), 
-		padding='same')(x)
+                    (3, 3), 
+                    kernel_initializer='he_normal', 
+                    kernel_regularizer=l2(1e-3), 
+                    padding='same')(x)
         else:
           x = Conv2D(k, 
-		(3, 3), 
-		kernel_initializer='he_normal', 
-		padding='same')(x)
+                    (3, 3), 
+                    kernel_initializer='he_normal', 
+                    padding='same')(x)
         if with_bn:
           x = BatchNormalization(epsilon=1.001e-5)(x)
           x = Activation('relu')(x)
@@ -453,11 +453,11 @@ def small_vgg(input_shape):
 
     return Model(input1,x)
 
-def small_vgg3d(input_shape):
-    kernels = [64, 128, 128, 256 , 512]
-    num_convs = [1,1,1,1,1]
-    with_bn = True
-    with_l2 = False
+def smallvgg3d(input_shape,
+              kernels=[64, 128, 128, 256 , 512],
+              num_convs=[1,1,1,1,1],
+              with_bn = True,
+              with_l2 = False):
     input1 = Input(input_shape)
     x = input1
     c = 0
@@ -465,15 +465,15 @@ def small_vgg3d(input_shape):
       for n in range(num_convs[c]):
         if with_l2:
           x = Conv3D(k, 
-		(1, 3, 3), 
-		kernel_initializer='he_normal', 
-		kernel_regularizer=l2(1e-3), 
-		padding='same')(x)
+                    (1, 3, 3), 
+                    kernel_initializer='he_normal', 
+                    kernel_regularizer=l2(1e-3), 
+                    padding='same')(x)
         else:
           x = Conv3D(k, 
-		(1, 3, 3), 
-		kernel_initializer='he_normal', 
-		padding='same')(x)
+                      (1, 3, 3), 
+                      kernel_initializer='he_normal', 
+                      padding='same')(x)
         if with_bn:
           x = BatchNormalization(epsilon=1.001e-5)(x)
           x = Activation('relu')(x)

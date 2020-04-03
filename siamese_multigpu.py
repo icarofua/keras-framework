@@ -146,7 +146,7 @@ if __name__ == '__main__':
   trn = trn_0 + trn_1
   val = data['validation']
   tst = data['test']
-  f1 = 'model_shape_veri.h5'
+  f1 = 'model.h5'
   input1 = (image_size_h_c,image_size_w_c,nchannels)
   siamese_net = siamese_model(small_vgg_car, input1, num, layers)
   lrate = LearningRateScheduler(step_decay)
