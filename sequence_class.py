@@ -27,7 +27,8 @@ def load_img(img, vec_size, vec_size2, metadata_dict, preprocess):
 
 
 class SiameseSequence(Sequence):
-    def __init__(self,features, 
+    def __init__(self,
+                features, 
                 augmentations=None,
                 batch_size=batch_size,
                 preprocess = None,
