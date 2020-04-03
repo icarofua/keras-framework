@@ -27,17 +27,24 @@ image_size_w_c = 64 #image´s width for vehicle´s shape
 image_size_h_c = 64 #image´s height for vehicle´s shape
 tam_max = 4
 L1_layer = Lambda(lambda tensor:K.abs(tensor[0] - tensor[1]))
-path = '.'
-train_augs = [[],[]]
 
-seq_car = albu.Compose(
-  [
-    albu.IAACropAndPad(px=(0, 8)),
-    albu.IAAFliplr(),
-    albu.IAAAffine(scale=(0.4, 1.8),rotate=(-3,3),order=[0,1],cval=(0),mode='constant'), #scale 0.8 1.2
 
-  ], p=1.0)
-
-for i in range(tam_max):
-  train_augs[0].append(seq_car)
-  train_augs[1].append(seq_car)
+def get_transforms(data):   
+    if data == 'train':
+        return Compose([
+            IAACropAndPad(px=(0, 8)),
+            IAAFliplr(),
+            IAAAffine(scale=(0.4, 1.8),rotate=(-3,3),order=[0,1],cval=(0),mode='constant'),
+            Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
+            ),
+        ])
+    
+    elif data == 'valid':
+        return Compose([
+            Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
+            ),
+        ])
